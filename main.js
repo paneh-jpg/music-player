@@ -134,7 +134,7 @@ const PLAYLISTS = {
 
   biTiNguyen: [
     {
-      name: "Marvin Gaye (feat. Meghan Trainor)",
+      name: "Marvin Gaye",
       singer: "Charlie Puth, Meghan Trainor",
       path: "./assets/music/playlist-2/1.mp3",
       image: "./assets/img/playlist-2/1.jpg",
@@ -427,6 +427,12 @@ const app = {
     // Random
     randomBtn.onclick = () => {
       _this.randomSong();
+      audio.play();
+    };
+
+    // Tự chạy bài mới khi bài hiện tại kết thúc
+    audio.onended = () => {
+      this.nextSong();
       audio.play();
     };
 

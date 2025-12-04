@@ -17,6 +17,27 @@
 
 html {
   font-family: "Poppins", sans-serif;
+  scrollbar-width: thin;
+  scrollbar-color: #555 #121212;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #121212; /* màu nền track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #2ecc71, #27ae60);
+  border-radius: 999px;
+  border: 2px solid #121212; /* tạo cảm giác thumb nổi lên */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #3ee187, #2ecc71);
 }
 
 body {
@@ -253,6 +274,7 @@ header h2 {
   padding: 20px 0;
   overflow-y: auto;
   margin-left: 40px;
+  height: 90vh;
 }
 
 .song {
