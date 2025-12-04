@@ -16,6 +16,7 @@ const nextBtn = $(".btn-next");
 const prevBtn = $(".btn-prev");
 const randomBtn = $(".btn-random");
 const playlistContainer = $(".playlist");
+$$(".sb-menu li").forEach((item) => item.classList.remove("active"));
 
 // ==========================
 // PLAYLIST DATA
