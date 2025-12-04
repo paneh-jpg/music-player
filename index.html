@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Music player</title>
+    <title>Music Player</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link
       rel="stylesheet"
@@ -17,6 +17,33 @@
     />
   </head>
   <body>
+    <!-- Mobile menu button -->
+    <div class="mobile-menu-btn">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Overlay khi mở sidebar -->
+    <div class="sidebar-overlay"></div>
+
+    <!-- SIDEBAR SPOTIFY -->
+    <aside class="sidebar-left">
+      <h2 class="sb-logo">Music</h2>
+
+      <ul class="sb-menu">
+        <li class="active"><i class="fas fa-music"></i> Danh sách nhạc</li>
+        <li><i class="fas fa-heart"></i> Yêu thích</li>
+        <li><i class="fas fa-history"></i> Nghe gần đây</li>
+      </ul>
+
+      <div class="sb-playlists">
+        <h3 class="sb-title">Playlists</h3>
+        <ul id="left-playlist">
+          <li class="sb-item" data-playlist="phuongAnh">Phuong Anh</li>
+          <li class="sb-item" data-playlist="biTiNguyen">Bi Ti Nguyen</li>
+        </ul>
+      </div>
+    </aside>
+
     <div class="player">
       <!-- Dashboard -->
       <div class="dashboard">
