@@ -185,6 +185,7 @@ header h2 {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 70px;
   padding: 18px 0;
 }
 
@@ -452,6 +453,7 @@ header h2 {
 
   .control {
     padding: 10px 0;
+    gap: 50px;
   }
 
   .control .btn {
@@ -478,6 +480,14 @@ header h2 {
 
   .progress {
     width: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  .control {
+    padding: 10px 0;
+    gap: 0px;
+    justify-content: space-between;
   }
 }
 
