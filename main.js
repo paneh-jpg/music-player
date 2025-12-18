@@ -14,8 +14,19 @@ const player = $(".player");
 const progress = $("#progress");
 const nextBtn = $(".btn-next");
 const prevBtn = $(".btn-prev");
+const repeatBtn = $(".btn-repeat");
 const randomBtn = $(".btn-random");
 const playlistContainer = $(".playlist");
+const currentTimeEl = $(".current-time");
+const durationTimeEl = $(".duration-time");
+
+function formatTime(seconds) {
+  if (isNaN(seconds)) return "00:00";
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${s < 10 ? "0" : ""}${s}`;
+}
+
 $$(".sb-menu li").forEach((item) => item.classList.remove("active"));
 
 // ==========================
@@ -132,7 +143,6 @@ const PLAYLISTS = {
       image: "./assets/img/playlist-1/song18.jpg",
     },
   ],
-
   biTiNguyen: [
     {
       name: "Marvin Gaye",
@@ -303,6 +313,80 @@ const PLAYLISTS = {
       image: "./assets/img/playlist-2/28.jpg",
     },
   ],
+  playList3: [
+    {
+      name: "Vạn vật như muốn ta bên nhau",
+      singer: "RIO",
+      path: "./assets/music/playlist-3/1.mp3",
+      image: "./assets/img/playlist-3/1.jpg",
+    },
+    {
+      name: "Đợi",
+      singer: "52Hz (prod. RIO)",
+      path: "./assets/music/playlist-3/2.mp3",
+      image: "./assets/img/playlist-3/2.jpg",
+    },
+    {
+      name: "Dù cho mau về sau",
+      singer: "buitruonglinh",
+      path: "./assets/music/playlist-3/3.mp3",
+      image: "./assets/img/playlist-3/3.jpg",
+    },
+    {
+      name: "Sinh ra đã là thứ đối lập nhau",
+      singer: "Emcee L (Da LAB) ft. Badbies",
+      path: "./assets/music/playlist-3/4.mp3",
+      image: "./assets/img/playlist-3/4.jpg",
+    },
+    {
+      name: "Kho báu",
+      singer: "(S)TRONG Trọng Hiếu",
+      path: "./assets/music/playlist-3/5.mp3",
+      image: "./assets/img/playlist-3/5.jpg",
+    },
+    {
+      name: "Phép màu",
+      singer: "MAYDAYs ",
+      path: "./assets/music/playlist-3/6.mp3",
+      image: "./assets/img/playlist-3/6.jpg",
+    },
+    {
+      name: "Hẹn hò nhưng ko yêu",
+      singer: "WENDY THẢO X V2T MEDIA ",
+      path: "./assets/music/playlist-3/7.mp3",
+      image: "./assets/img/playlist-3/7.jpg",
+    },
+    {
+      name: "Anh đã chờ rất lâu",
+      singer: "Sixkie Dawgz",
+      path: "./assets/music/playlist-3/8.mp3",
+      image: "./assets/img/playlist-3/8.jpg",
+    },
+    {
+      name: "Mưa tháng sáu",
+      singer: "VĂN MAI HƯƠNG (feat. GREY D, TRUNG QUÂN)",
+      path: "./assets/music/playlist-3/9.mp3",
+      image: "./assets/img/playlist-3/9.jpg",
+    },
+    {
+      name: "Đưa em về nhà",
+      singer: "GREY D",
+      path: "./assets/music/playlist-3/10.mp3",
+      image: "./assets/img/playlist-3/10.jpg",
+    },
+    {
+      name: "Tháng tư là lời nói dối của em",
+      singer: "Hà Anh Tuấn ",
+      path: "./assets/music/playlist-3/11.mp3",
+      image: "./assets/img/playlist-3/11.jpg",
+    },
+    {
+      name: "Id 072019",
+      singer: "W/n - id 072019 | 3107 ft 267",
+      path: "./assets/music/playlist-3/12.mp3",
+      image: "./assets/img/playlist-3/12.jpg",
+    },
+  ],
 };
 
 // ==========================
@@ -311,7 +395,9 @@ const PLAYLISTS = {
 const app = {
   currentIndex: 0,
   isPlaying: false,
-  songs: [...PLAYLISTS.biTiNguyen], // Mặc định playlist-2
+  isRepeat: false,
+  isRandom: false,
+  songs: [...PLAYLISTS.biTiNguyen],
 
   // Load bài hát hiện tại
   loadCurrentSong() {
@@ -319,6 +405,9 @@ const app = {
     heading.textContent = current.name;
     cdThumb.style.backgroundImage = `url('${current.image}')`;
     audio.src = current.path;
+
+    currentTimeEl.textContent = "00:00";
+    durationTimeEl.textContent = "00:00";
 
     cdThumb.classList.add("fade");
     setTimeout(() => cdThumb.classList.remove("fade"), 400);
@@ -341,18 +430,15 @@ const app = {
       </div>`
       )
       .join("");
-
     playlistContainer.innerHTML = html;
   },
 
-  // Next bài
   nextSong() {
     this.currentIndex = (this.currentIndex + 1) % this.songs.length;
     this.loadCurrentSong();
     this.render();
   },
 
-  // Prev bài
   prevSong() {
     this.currentIndex =
       (this.currentIndex - 1 + this.songs.length) % this.songs.length;
@@ -360,20 +446,18 @@ const app = {
     this.render();
   },
 
-  // Random bài
   randomSong() {
     let newIndex;
     do {
       newIndex = Math.floor(Math.random() * this.songs.length);
     } while (newIndex === this.currentIndex);
-
     this.currentIndex = newIndex;
     this.loadCurrentSong();
     this.render();
   },
 
   // ==========================
-  // SỰ KIỆN
+  // EVENTS
   // ==========================
   handleEvents() {
     const _this = this;
@@ -402,10 +486,12 @@ const app = {
       player.classList.remove("playing");
     };
 
-    // Tiến độ bài hát
+    // Tiến độ bài hát + hiển thị thời gian
     audio.ontimeupdate = () => {
       if (audio.duration) {
         progress.value = Math.floor((audio.currentTime / audio.duration) * 100);
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+        durationTimeEl.textContent = formatTime(audio.duration);
       }
     };
 
@@ -425,16 +511,30 @@ const app = {
       audio.play();
     };
 
-    // Random
+    // Random (loop mode)
     randomBtn.onclick = () => {
-      _this.randomSong();
-      audio.play();
+      _this.isRandom = !_this.isRandom;
+      randomBtn.classList.toggle("active", _this.isRandom);
     };
 
-    // Tự chạy bài mới khi bài hiện tại kết thúc
+    // Repeat
+    repeatBtn.onclick = () => {
+      _this.isRepeat = !_this.isRepeat;
+      repeatBtn.classList.toggle("active", _this.isRepeat);
+    };
+
+    // Khi bài hát kết thúc
     audio.onended = () => {
-      this.nextSong();
-      audio.play();
+      if (_this.isRepeat) {
+        audio.currentTime = 0;
+        audio.play();
+      } else if (_this.isRandom) {
+        _this.randomSong();
+        audio.play();
+      } else {
+        _this.nextSong();
+        audio.play();
+      }
     };
 
     // Click chọn bài trong playlist
@@ -448,74 +548,37 @@ const app = {
       }
     };
 
+    // Sidebar
     $("#left-playlist").onclick = (e) => {
       const li = e.target.closest(".sb-item");
       if (!li) return;
-
       const key = li.dataset.playlist;
-
-      // 🚀 1. Xóa active ở tất cả sb-item
-      $$("#left-playlist .sb-item").forEach((item) =>
-        item.classList.remove("active")
+      $$("#left-playlist .sb-item").forEach((i) =>
+        i.classList.remove("active")
       );
-
-      // 🚀 2. Gán active cho item được click
       li.classList.add("active");
-
-      // 🚀 3. Load playlist
-      this.songs = [...PLAYLISTS[key]];
-      this.currentIndex = 0;
-      this.loadCurrentSong();
-      this.render();
+      _this.songs = [...PLAYLISTS[key]];
+      _this.currentIndex = 0;
+      _this.loadCurrentSong();
+      _this.render();
       audio.play();
     };
 
-    // bên trong app.handleEvents()
+    // Sidebar mobile toggle
     const menuBtn = document.querySelector(".mobile-menu-btn");
     const sidebar = document.querySelector(".sidebar-left");
     const overlay = document.querySelector(".sidebar-overlay");
 
-    // Mở sidebar
     menuBtn.onclick = () => {
       sidebar.classList.add("active");
       overlay.classList.add("active");
     };
-
-    // Đóng sidebar khi click overlay
     overlay.onclick = () => {
-      sidebar.classList.remove("active");
-      overlay.classList.remove("active");
-    };
-
-    // Click chọn playlist ở sidebar
-    $("#left-playlist").onclick = (e) => {
-      const li = e.target.closest(".sb-item");
-      if (!li) return;
-
-      const key = li.dataset.playlist;
-
-      // 1. Active state cho sidebar item
-      $$("#left-playlist .sb-item").forEach((item) =>
-        item.classList.remove("active")
-      );
-      li.classList.add("active");
-
-      // 2. Load playlist tương ứng
-      this.songs = [...PLAYLISTS[key]];
-      this.currentIndex = 0;
-      this.loadCurrentSong();
-      this.render();
-      audio.play();
-
-      // 3. Đóng drawer trên mobile
       sidebar.classList.remove("active");
       overlay.classList.remove("active");
     };
   },
 
-  // ==========================
-  // START APP
-  // ==========================
   start() {
     this.handleEvents();
     this.loadCurrentSong();

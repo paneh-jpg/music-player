@@ -520,3 +520,12 @@ header h2 {
   color: var(--text-color); /* Chữ trắng sáng */
   font-weight: 600; /* In đậm */
 }
+
+.time {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 6px auto 0;
+  font-size: 12px;
+  color: #b3b3b3;
+}
