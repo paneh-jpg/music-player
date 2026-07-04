@@ -1,0 +1,153 @@
+
+/* Apple Music Inspired Theme */
+:root{
+--bg:#121214;
+--bg2:#1b1b1f;
+--glass:rgba(255,255,255,.08);
+--glass2:rgba(255,255,255,.05);
+--border:rgba(255,255,255,.08);
+--text:#fff;
+--muted:#b8b8c2;
+--accent:#fa2d6c;
+--radius:22px;
+--sidebar:260px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+background:linear-gradient(180deg,#2b2b32,#18181b,#121214);
+color:var(--text);
+display:grid;
+grid-template-columns:var(--sidebar) 1fr;
+overflow:hidden;
+}
+.background-blur{
+position:fixed;inset:0;
+background:radial-gradient(circle at top,#5b2940 0,#121214 60%);
+filter:blur(90px);
+opacity:.35;
+z-index:-1;
+}
+.sidebar-left{
+padding:28px 18px;
+background:rgba(28,28,30,.72);
+backdrop-filter:blur(28px);
+border-right:1px solid var(--border);
+display:flex;
+flex-direction:column;
+gap:24px;
+overflow:auto;
+}
+.logo{font-size:30px;font-weight:700}
+.sidebar-section,.sidebar-title,#left-playlist{display:flex;flex-direction:column;gap:8px}
+.sidebar-title{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:1px}
+.sb-item{
+display:flex;align-items:center;gap:12px;
+padding:12px 14px;border-radius:14px;cursor:pointer;
+transition:.25s;
+color:var(--muted)
+}
+.sb-item:hover,.sb-item.active{background:var(--glass);color:#fff}
+.main{display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.topbar{
+display:flex;justify-content:space-between;align-items:center;
+padding:24px 32px;
+}
+.search{
+display:flex;align-items:center;gap:10px;
+background:var(--glass2);
+border:1px solid var(--border);
+padding:12px 18px;
+border-radius:999px;
+width:360px;
+}
+.search input{
+background:none;border:none;outline:none;color:white;width:100%;
+}
+.profile img{width:42px;height:42px;border-radius:50%}
+.hero{
+display:flex;
+align-items:center;
+gap:48px;
+padding:0 40px 30px;
+}
+.cd-thumb{
+width:320px;
+height:320px;
+border-radius:28px;
+background-size:cover;
+background-position:center;
+box-shadow:0 25px 80px rgba(0,0,0,.4);
+transition:.4s;
+}
+.playing .cd-thumb{transform:scale(1.03)}
+.hero-info h4{color:var(--muted);margin-bottom:10px}
+.hero-info h1{font-size:52px}
+.hero-info h3{margin-top:12px;color:var(--muted);font-weight:500}
+.playlist{
+flex:1;
+overflow:auto;
+padding:0 32px 120px;
+}
+.song{
+display:flex;
+align-items:center;
+gap:18px;
+padding:14px 18px;
+border-radius:18px;
+transition:.25s;
+cursor:pointer;
+}
+.song:hover{background:var(--glass2)}
+.song.active{background:var(--glass)}
+.thumb{
+width:58px;height:58px;border-radius:14px;
+background-size:cover;background-position:center;
+}
+.body{flex:1}
+.title{font-size:17px;font-weight:600}
+.author{margin-top:4px;color:var(--muted);font-size:13px}
+.option{color:var(--muted)}
+.player-bar{
+position:fixed;
+left:var(--sidebar);
+right:0;
+bottom:0;
+height:92px;
+background:rgba(28,28,30,.82);
+backdrop-filter:blur(30px);
+border-top:1px solid var(--border);
+display:grid;
+grid-template-columns:260px 1fr 220px;
+align-items:center;
+padding:0 24px;
+}
+.player-left{display:flex;align-items:center;gap:14px}
+.mini-thumb{width:54px;height:54px;border-radius:12px;background:#333}
+.player-center{display:flex;flex-direction:column;align-items:center;gap:10px}
+.control{display:flex;gap:26px;align-items:center}
+.btn{
+width:44px;height:44px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+cursor:pointer;transition:.2s;color:#fff;
+}
+.btn:hover{background:var(--glass)}
+.btn-toggle-play{
+background:var(--accent);
+box-shadow:0 10px 25px rgba(250,45,108,.35)
+}
+.progress-wrapper{display:flex;align-items:center;gap:12px;width:100%}
+#progress{flex:1;height:4px}
+.player-right{display:flex;align-items:center;gap:12px}
+#volume{width:120px}
+@media(max-width:900px){
+body{grid-template-columns:1fr}
+.sidebar-left{position:fixed;left:-280px;top:0;bottom:0;width:260px;z-index:20;transition:.3s}
+.sidebar-left.active{left:0}
+.player-bar{left:0;grid-template-columns:1fr}
+.player-right{display:none}
+.hero{flex-direction:column;text-align:center}
+.cd-thumb{width:240px;height:240px}
+.search{width:220px}
+}
