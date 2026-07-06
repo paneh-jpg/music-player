@@ -28,6 +28,12 @@ function formatTime(seconds) {
   return `${m}:${s < 10 ? "0" : ""}${s}`;
 }
 
+function updateFavicon(imageUrl) {
+  const favicon = document.getElementById("favicon");
+
+  favicon.href = `${imageUrl}?v=${Date.now()}`;
+}
+
 $$(".sb-menu li").forEach((item) => item.classList.remove("active"));
 
 // APP
@@ -44,6 +50,8 @@ const app = {
     heading.textContent = current.name;
     cdThumb.style.backgroundImage = `url('${current.image}')`;
     audio.src = current.path;
+
+    updateFavicon(current.image);
 
     currentTimeEl.textContent = "00:00";
     durationTimeEl.textContent = "00:00";
