@@ -44,14 +44,46 @@ const app = {
   isRandom: false,
   songs: [...PLAYLISTS.playList4],
 
+  updateMediaSession() {
+    if (!("mediaSession" in navigator)) return;
+
+    const current = this.songs[this.currentIndex];
+
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: current.name,
+      artist: current.singer,
+      album: "My Music Player",
+      artwork: [
+        {
+          src: current.image,
+          sizes: "512x512",
+          type: "image/jpeg",
+        },
+      ],
+    });
+
+    navigator.mediaSession.playbackState = this.isPlaying
+      ? "playing"
+      : "paused";
+  },
+
+  updatePageTitle() {
+    const current = this.songs[this.currentIndex];
+
+    document.title = `${current.name} • ${current.singer}`;
+  },
+
   // Load bài hát hiện tại
   loadCurrentSong() {
     const current = this.songs[this.currentIndex];
+
     heading.textContent = current.name;
     cdThumb.style.backgroundImage = `url('${current.image}')`;
     audio.src = current.path;
 
     updateFavicon(current.image);
+    this.updateMediaSession();
+    this.updatePageTitle();
 
     currentTimeEl.textContent = "00:00";
     durationTimeEl.textContent = "00:00";
