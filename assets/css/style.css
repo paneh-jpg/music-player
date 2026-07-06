@@ -69,7 +69,9 @@ body {
   font-size: 14px;
   font-weight: 400;
   color: #b3b3b3; /* Màu chữ nhạt hơn cho mục menu */
-  transition: color 0.2s, background-color 0.2s;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
 }
 
 .sb-menu li i {
@@ -128,7 +130,9 @@ body {
   border-radius: 10px;
   text-align: center;
   z-index: 50;
-  transition: padding 0.3s, background-color 0.3s;
+  transition:
+    padding 0.3s,
+    background-color 0.3s;
 }
 
 header h4 {
@@ -148,7 +152,9 @@ header h2 {
 .cd {
   margin: 0 auto;
   width: 200px;
-  transition: width 0.3s, opacity 0.3s; /* Thêm transition cho width và opacity */
+  transition:
+    width 0.3s,
+    opacity 0.3s; /* Thêm transition cho width và opacity */
 }
 
 .cd-thumb {
@@ -160,6 +166,12 @@ header h2 {
   margin-bottom: 20px;
   animation: rotate 10s linear infinite;
   animation-play-state: paused;
+  box-shadow:
+    rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px,
+    rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px,
+    rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .cd-thumb.fade {
@@ -213,7 +225,9 @@ header h2 {
   background-color: var(--accent-color);
   margin: 0 10px;
   box-shadow: 0 0 10px rgba(30, 215, 96, 0.5);
-  transition: background-color 0.2s, transform 0.1s;
+  transition:
+    background-color 0.2s,
+    transform 0.1s;
 }
 
 .control .btn-toggle-play:active {
@@ -511,7 +525,9 @@ header h2 {
 .sb-playlists .sb-item {
   /* ... (các style mặc định) */
   color: #b3b3b3; /* Màu chữ nhạt hơn cho mục menu */
-  transition: color 0.2s, background-color 0.2s;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
 }
 
 /* Style cho trạng thái ACTIVE */

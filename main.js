@@ -101,12 +101,17 @@ const app = {
 
     // Scroll phóng to CD
     const cdWidth = cd.offsetWidth;
-    document.onscroll = () => {
+    window.addEventListener("scroll", () => {
       const scrollTop = window.scrollY;
-      const newWidth = cdWidth - scrollTop;
-      cd.style.width = newWidth > 0 ? newWidth + "px" : 0;
-      cd.style.opacity = newWidth / cdWidth;
-    };
+      const newCdWidth = cdWidth - scrollTop;
+      if (newCdWidth > 0) {
+        cd.style.width = newCdWidth + "px";
+      } else {
+        cd.style.width = 0;
+      }
+
+      cd.style.opacity = newCdWidth / cdWidth;
+    });
 
     // Play / Pause
     playBtn.onclick = () => {
